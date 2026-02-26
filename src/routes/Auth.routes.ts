@@ -23,6 +23,35 @@ authRouter.post(
     authController.create(req, res, next),
 );
 
+
+
+
+
+/**
+ * @openapi
+ * /api/auth/login:
+ *   post:
+ *     summary: Login user
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [email, password]
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "admin@tripxl.com"
+ *               password:
+ *                 type: string
+ *                 example: "admin@123"
+ *     responses:
+ *       200:
+ *         description: Login successful
+ */
 authRouter.post("/login",loginValidator ,(req: Request, res: Response, next: NextFunction) =>
   authController.login(req, res, next),
 );

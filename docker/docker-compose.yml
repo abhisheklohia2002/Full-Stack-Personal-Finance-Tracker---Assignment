@@ -1,6 +1,29 @@
 version: "3.9"
 
 services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: backend-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: mernpg_dev
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ../:/usr/src/app
+      - /usr/src/app/node_modules
+
   postgres:
     image: postgres:16
     container_name: postgres-db

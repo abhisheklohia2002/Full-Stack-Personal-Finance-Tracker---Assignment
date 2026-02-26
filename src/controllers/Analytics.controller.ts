@@ -11,8 +11,8 @@ class AnalyticsController {
       if (!req.auth) throw createHttpError(401, "Unauthorized");
 
       const data = await this.analyticsService.summary(
-        req.auth.sub,
-        req.auth.role,
+        req?.auth?.sub,
+        req?.auth?.role,
       );
 
       res.status(200).json({ data });

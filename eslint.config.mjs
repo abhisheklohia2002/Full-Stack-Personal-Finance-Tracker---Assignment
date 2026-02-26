@@ -15,7 +15,7 @@ export default defineConfig(
     },
 
     rules: {
-        // "dot-notation": "error",
+       '@typescript-eslint/no-unsafe-argument':'off'
     },
   },
   {

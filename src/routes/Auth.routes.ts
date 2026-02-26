@@ -11,6 +11,7 @@ import { AuthUser } from "../entity/user.js";
 import TokenService from "../services/Token.service.js";
 import loginValidator from "../validators/login.js";
 import autenications from "../middleware/autenications.js";
+import { canAccess } from "../middleware/canAccess.js";
 
 const authRouter = express.Router();
 const userRepository = AppDataSource.getRepository(AuthUser);
@@ -62,6 +63,9 @@ authRouter.get("/self",autenications ,(req: Request, res: Response, next: NextFu
   authController.self(req, res, next),
 );
 
+authRouter.get("/user",autenications,canAccess(['admin']) ,(req: Request, res: Response, next: NextFunction) =>
+  authController.list(req, res, next),
+);
 authRouter.post("/logout",autenications ,(req: Request, res: Response, next: NextFunction) =>
   authController.logout(req, res, next),
 );

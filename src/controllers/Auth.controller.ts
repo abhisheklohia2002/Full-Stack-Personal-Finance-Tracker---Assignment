@@ -49,7 +49,7 @@ class AuthController {
       return res.status(400).json({ error: result.array() });
     }
     const { email } = req.body as ILogin;
-    
+
     try {
       const isExisted = await this.authService.login(req.body as ILogin);
       const payload: JwtPayload = {
@@ -67,13 +67,12 @@ class AuthController {
         maxAge: 1000 * 60 * 60,
         domain: "localhost",
       });
-      res.status(200).json({ msg: "login successfully", data:isExisted});
+      res.status(200).json({ msg: "login successfully", data: isExisted });
     } catch (error) {
       next(error);
       return;
     }
   }
-
 
   async self(req: IAuthRequest, res: Response, next: NextFunction) {
     try {
@@ -95,12 +94,19 @@ class AuthController {
     }
   }
 
-
-
-   logout(req: IAuthRequest, res: Response, next: NextFunction) {
+  logout(req: IAuthRequest, res: Response, next: NextFunction) {
     try {
       res.clearCookie("accessToken");
       res.status(200).json({ msg: "logout successfully" });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async list(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user = await this.authService.list();
+      res.status(200).json({ user });
     } catch (error) {
       return next(error);
     }

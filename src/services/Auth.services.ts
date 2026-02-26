@@ -64,6 +64,10 @@ class AuthService {
       },
     });
   }
+
+  async list(){
+    return await this.userRepository.find({});
+  }
 }
 
 export default AuthService;

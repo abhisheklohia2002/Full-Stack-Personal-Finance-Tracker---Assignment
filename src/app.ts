@@ -1,0 +1,33 @@
+import "reflect-metadata";
+import express from "express";
+import authRouter from "./routes/Auth.routes.js";
+import categoryRouter from "./routes/Category.routes.js";
+import transactionRouter from "./routes/Transaction.routes.js";
+import cookieParser from "cookie-parser";
+import path from "path";
+import { fileURLToPath } from "url";
+import { globalErrorHandler } from "./middleware/globalErrorHandler.js";
+import analyticsRouter from "./routes/Analytics.routes.js";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+
+app.use("/api/auth",authRouter);
+app.use('/api/transaction/',transactionRouter)
+app.use("/api/category",categoryRouter);
+app.use('/api/analytics',analyticsRouter)
+
+app.use(express.static(path.join(__dirname, "../public"), { dotfiles: "allow" }));
+app.get("/.well-known/jwks.json", (req, res) => {
+  res.sendFile("jwks.json", { root: "public/.well-known" });
+});
+app.get("/", (req, res) => {
+  res.send("<h1>Welcome to the Finacial Service</h1>");
+});
+
+app.use(globalErrorHandler)
+
+export default app;

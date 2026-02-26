@@ -7,6 +7,7 @@ import transactionRouter from "./routes/Transaction.routes.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
+import cors from 'cors'
 import { globalErrorHandler } from "./middleware/globalErrorHandler.js";
 import analyticsRouter from "./routes/Analytics.routes.js";
 import { swaggerSpec } from "./config/swagger.js";
@@ -14,7 +15,10 @@ import { swaggerSpec } from "./config/swagger.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
-
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 

@@ -1,9 +1,10 @@
 import { type NextFunction, type Request, type Response } from "express";
 import type AuthService from "../services/Auth.services.js";
-import type { IAuthUser, ILogin } from "../constant/index.js";
+import type { IAuthRequest, IAuthUser, ILogin } from "../constant/index.js";
 import { validationResult } from "express-validator";
 import type { JwtPayload } from "jsonwebtoken";
 import type TokenService from "../services/Token.service.js";
+import createHttpError from "http-errors";
 
 class AuthController {
   constructor(
@@ -66,10 +67,42 @@ class AuthController {
         maxAge: 1000 * 60 * 60,
         domain: "localhost",
       });
-      res.status(200).json({ msg: "login successfully" });
+      res.status(200).json({ msg: "login successfully", data:isExisted});
     } catch (error) {
       next(error);
       return;
+    }
+  }
+
+
+  async self(req: IAuthRequest, res: Response, next: NextFunction) {
+    try {
+      const userId = req.auth?.sub;
+
+      if (!userId) {
+        return next(createHttpError(401, "Unauthorized"));
+      }
+
+      const user = await this.authService.findById(+userId);
+
+      if (!user) {
+        return next(createHttpError(404, "User not found"));
+      }
+
+      return res.status(200).json({ user: user });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+
+
+   logout(req: IAuthRequest, res: Response, next: NextFunction) {
+    try {
+      res.clearCookie("accessToken");
+      res.status(200).json({ msg: "logout successfully" });
+    } catch (error) {
+      return next(error);
     }
   }
 }

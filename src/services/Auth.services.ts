@@ -56,6 +56,14 @@ class AuthService {
     }
     return isExisted;
   }
+
+  async findById(id: number) {
+    return await this.userRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
 }
 
 export default AuthService;

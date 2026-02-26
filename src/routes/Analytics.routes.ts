@@ -19,7 +19,7 @@ const analyticsController = new AnalyticsController(analyticsService);
 analyticsRouter.get(
   "/summary",
   autenications,
-  canAccess(["admin,user", "read-only", "user"]),
+  canAccess(["admin","user", "read-only"]),
   (req: Request, res: Response, next: NextFunction) =>
     analyticsController.summary(req, res, next),
 );
@@ -27,7 +27,7 @@ analyticsRouter.get(
 analyticsRouter.get(
   "/category-breakdown",
   autenications,
-  canAccess(["admin,user", "read-only", "user"]),
+  canAccess(["admin","user", "read-only"]),
   (req: Request, res: Response, next: NextFunction) =>
     analyticsController.categoryBreakdown(req, res, next),
 );

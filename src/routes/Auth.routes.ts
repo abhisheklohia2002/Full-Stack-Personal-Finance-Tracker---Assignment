@@ -10,6 +10,7 @@ import { AppDataSource } from "../config/data-source.js";
 import { AuthUser } from "../entity/user.js";
 import TokenService from "../services/Token.service.js";
 import loginValidator from "../validators/login.js";
+import autenications from "../middleware/autenications.js";
 
 const authRouter = express.Router();
 const userRepository = AppDataSource.getRepository(AuthUser);
@@ -54,6 +55,15 @@ authRouter.post(
  */
 authRouter.post("/login",loginValidator ,(req: Request, res: Response, next: NextFunction) =>
   authController.login(req, res, next),
+);
+
+
+authRouter.get("/self",autenications ,(req: Request, res: Response, next: NextFunction) =>
+  authController.self(req, res, next),
+);
+
+authRouter.post("/logout",autenications ,(req: Request, res: Response, next: NextFunction) =>
+  authController.logout(req, res, next),
 );
 
 export default authRouter;

@@ -28,10 +28,15 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api", apiRateLimiter);
-app.use("/api/auth", authRateLimiter);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get("/api/docs.json", (_req, res) => res.json(swaggerSpec));
+
+app.use("/api", (req, res, next) => {
+  if (req.path === "/docs.json") return next();
+  return apiRateLimiter(req, res, next);
+});
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api/auth", authRateLimiter);
 app.use("/api/auth",authRouter);
 app.use('/api/transaction/',transactionRouter)
 app.use("/api/category",categoryRouter);

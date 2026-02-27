@@ -28,8 +28,8 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use("/api", apiRateLimiter);
-// app.use("/api/auth", authRateLimiter);
+app.use("/api", apiRateLimiter);
+app.use("/api/auth", authRateLimiter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get("/api/docs.json", (_req, res) => res.json(swaggerSpec));
 app.use("/api/auth",authRouter);

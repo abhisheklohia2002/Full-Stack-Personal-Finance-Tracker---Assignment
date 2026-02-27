@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "NODE_ENV=development nodemon --watch src --ext ts --exec tsx src/server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "author": "Abhishek Lohia",
   "license": "ISC",

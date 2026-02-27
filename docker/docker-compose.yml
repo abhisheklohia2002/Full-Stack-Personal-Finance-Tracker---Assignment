@@ -3,46 +3,40 @@ version: "3.9"
 services:
   backend:
     build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    container_name: backend-app
+      context: .
+      dockerfile: Dockerfile
+    container_name: mern-backend
     restart: always
     ports:
-      - "3000:3000"
-    environment:
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DB_NAME: mernpg_dev
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+      - "${APP_PORT}:3000"
+    env_file:
+      - .env
     depends_on:
       - postgres
       - redis
     volumes:
-      - ../:/usr/src/app
+      - .:/usr/src/app
       - /usr/src/app/node_modules
 
   postgres:
     image: postgres:16
-    container_name: postgres-db
+    container_name: mern-postgres
     restart: always
     environment:
-      POSTGRES_DB: mernpg_dev
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
   redis:
     image: redis:latest
-    container_name: redis-server
+    container_name: mern-redis
     restart: always
     ports:
-      - "6060:6379"
+      - "${REDIS_PORT}:6379"
     volumes:
       - redis-data:/data
     command: redis-server --appendonly yes

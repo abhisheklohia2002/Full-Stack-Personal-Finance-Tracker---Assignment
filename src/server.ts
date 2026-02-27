@@ -3,6 +3,7 @@ import "reflect-metadata";
 import app from "./app.js";
 import { AppDataSource } from "./config/data-source.js";
 import logger from "./config/logger.js";
+import { Config } from "./config/index.js";
 
 const dbConnection = async () => {
   try {
@@ -15,7 +16,7 @@ const dbConnection = async () => {
 };
 
 const startServer = async () => {
-  const PORT = 3000;
+  const PORT = Config.PORT;
   try {
     await dbConnection();
 

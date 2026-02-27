@@ -12,7 +12,11 @@ export const AppDataSource = new DataSource({
   username: Config.DB_USER,
   password: Config.DB_PASSWORD,
   database: Config.DB_NAME,
+  url: Config.DATABASE_URL,
+  ssl:Config.NODE_ENV === "production"?{
+    rejectUnauthorized:false
+  }:false,
   synchronize: true,
   logging: false,
-  entities: [AuthUser,Category,Transaction],
+  entities: [AuthUser, Category, Transaction],
 });

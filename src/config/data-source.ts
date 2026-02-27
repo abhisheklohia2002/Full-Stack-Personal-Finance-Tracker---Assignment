@@ -4,7 +4,7 @@ import { Config } from "./index.js";
 import { AuthUser } from "../entity/user.js";
 import Category from "../entity/categories.js";
 import Transaction from "../entity/transaction.js";
-
+const isProd = Config.NODE_ENV === "production";
 export const AppDataSource = new DataSource({
   type: "postgres",
   host: Config.DB_HOST,
@@ -12,6 +12,7 @@ export const AppDataSource = new DataSource({
   username: Config.DB_USER,
   password: Config.DB_PASSWORD,
   database: Config.DB_NAME,
+  ssl: isProd ? { rejectUnauthorized: false } : false,
   synchronize: true,
   logging: false,
   entities: [AuthUser,Category,Transaction],

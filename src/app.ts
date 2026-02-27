@@ -19,9 +19,14 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.set("trust proxy", 1);
 app.use(cors({
-  origin: ["http://localhost:5173",'https://full-stack-personal-finance-tracker-lrg3.onrender.com/'],
-  credentials: true
+  origin: [
+    "http://localhost:5173",
+    "https://full-stack-personal-finance-tracker-lrg3.onrender.com"
+  ],
+  credentials: true,
 }));
+
+app.options("*", cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api", apiRateLimiter);

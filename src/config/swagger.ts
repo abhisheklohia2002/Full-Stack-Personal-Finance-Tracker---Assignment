@@ -20,7 +20,7 @@ const options: swaggerJSDoc.Options = {
       description: "API documentation",
     },
     servers: [
-      { url: "http://localhost:3000", description: "Local" },
+      { url: "https://full-stack-personal-finance-tracker.onrender.com", description: "Local" },
     ],
     components: {
       securitySchemes: {

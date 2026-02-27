@@ -42,5 +42,4 @@ export const Config = {
   JWKS_URI: required("JWKS_URI"),
   REDIS_HOST:required('REDIS_HOST'),
   REDIS_PORT:required('REDIS_PORT'),
-  CACHE_TTL:60
 } as const;

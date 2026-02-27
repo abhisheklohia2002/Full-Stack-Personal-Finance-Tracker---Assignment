@@ -81,12 +81,9 @@ class TransactionService {
       .addOrderBy("t.id", "DESC")
       .skip(skip)
       .take(limit);
-
+    console.log("ROLE:", role, "AUTH_USER:", authUserId);
     // eslint-disable-next-line no-constant-condition
-    if (role !== "admin") {
-      qb.where("user.id = :authUserId", { authUserId });
-    }
-    if (role !== "read-only") {
+    if (role == "user") {
       qb.where("user.id = :authUserId", { authUserId });
     } else {
       qb.where("1=1");

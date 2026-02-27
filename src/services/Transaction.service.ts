@@ -1,6 +1,9 @@
 import type { Repository } from "typeorm";
 import type Transaction from "../entity/transaction.js";
-import type { ICreateTransaction, ITransactionQuery } from "../constant/index.js";
+import type {
+  ICreateTransaction,
+  ITransactionQuery,
+} from "../constant/index.js";
 import createHttpError from "http-errors";
 
 class TransactionService {
@@ -66,11 +69,7 @@ class TransactionService {
     return { deleted: true };
   }
 
-  async list(
-    authUserId: string,
-    role: string,
-    query: ITransactionQuery,
-  ) {
+  async list(authUserId: string, role: string, query: ITransactionQuery) {
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 10;
     const skip = (page - 1) * limit;
@@ -83,7 +82,11 @@ class TransactionService {
       .skip(skip)
       .take(limit);
 
+    // eslint-disable-next-line no-constant-condition
     if (role !== "admin") {
+      qb.where("user.id = :authUserId", { authUserId });
+    }
+    if (role !== "read-only") {
       qb.where("user.id = :authUserId", { authUserId });
     } else {
       qb.where("1=1");

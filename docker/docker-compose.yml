@@ -10,7 +10,7 @@ services:
     ports:
       - "${APP_PORT}:3000"
     env_file:
-      - .env
+      - .env.development
     depends_on:
       - postgres
       - redis

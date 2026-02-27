@@ -49,5 +49,6 @@ export const Config = {
 
   REFRESH_TOKEN_SECRET: required("REFRESH_TOKEN_SECRET"),
   JWKS_URI: required("JWKS_URI"),
-  DATABASE_URL:required('DATABASE_URL')
+  DATABASE_URL:required('DATABASE_URL'),
+  PRIVATE_KEY:required('PRIVATE_KEY')
 };

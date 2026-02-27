@@ -1,27 +1,30 @@
-1. Project Overview
+# Finance Tracker Backend API
 
-RESTful API for Finance Tracker
+Backend service for a Finance Tracker application built with **Node.js (Express + TypeScript)**, **PostgreSQL**, **TypeORM**,   
+Supports **JWT auth (access)**, serves **JWKS** at `/.well-known/jwks.json`, and includes **Swagger** docs.
 
-JWT-based authentication (Access)
+---
 
-RSA key-based token signing
+## Features
 
-PostgreSQL database integration
+- ✅ Authentication (JWT + AccessToken)
+- ✅ PostgreSQL with TypeORM 
+- ✅ Categories, Transactions, Analytics routes
+- ✅ Swagger UI + JSON spec
+- ✅ CORS + Cookies support
+- ✅ Global error handler
+- ✅ API Rate Limiting
+- ✅ Docker support (local/dev)
 
-Dockerized for easy deployment
+---
 
-2. Tech Stack
+## Tech Stack
 
-Node.js
+- Node.js
+- TypeScript
+- PostgreSQL
+- TypeORM
+- Swagger (OpenAPI)
+- Docker / Docker Compose 
 
-Express / TypeScript
 
-PostgreSQL
-
-Redis
-
-TypeORM
-
-JWT (RSA)
-
-Docker & Docker Compose

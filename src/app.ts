@@ -37,8 +37,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get("/api/docs.json", (_req, res) => res.json(swaggerSpec));
 
 app.use(express.static(path.join(__dirname, "../public"), { dotfiles: "allow" }));
-app.get("/.well-known/jwks.json", (req, res) => {
-  res.sendFile("jwks.json", { root: "public/.well-known" });
+app.get("/.well-known/jwks.json", (_req, res) => {
+  res.sendFile(path.join(__dirname, "../public/.well-known/jwks.json"));
 });
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to the Finacial Service</h1>");

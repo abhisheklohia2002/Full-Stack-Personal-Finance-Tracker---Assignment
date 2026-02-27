@@ -21,4 +21,9 @@ export const transactionValidator = [
     .notEmpty()
     .isISO8601()
     .withMessage("transactionDate must be a valid date (YYYY-MM-DD)"),
+
+     body("user")
+    .notEmpty()
+    .isFloat({ gt: 0 })
+    .withMessage("userId required"),
 ];

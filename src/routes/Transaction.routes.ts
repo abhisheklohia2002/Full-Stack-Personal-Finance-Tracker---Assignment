@@ -51,6 +51,9 @@ const transactionController = new TransactionController(transactionService);
  *                 type: string
  *                 format: date
  *                 example: "2026-02-27"
+ *               user:
+ *                 type: number
+ *                 example: "1"
  *     responses:
  *       201:
  *         description: Transaction created successfully

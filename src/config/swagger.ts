@@ -1,23 +1,38 @@
-import path from "path";
+
 import swaggerJSDoc from "swagger-jsdoc";
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-export const swaggerSpec = swaggerJSDoc({
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const isProd = process.env.NODE_ENV === "production";
+
+const apisGlob = isProd
+  ? [path.join(__dirname, "../routes/**/*.js"), path.join(__dirname, "../controllers/**/*.js")]
+  : [path.join(__dirname, "../routes/**/*.ts"), path.join(__dirname, "../controllers/**/*.ts")];
+
+const options: swaggerJSDoc.Options = {
   definition: {
     openapi: "3.0.0",
-    info: { title: "Finance Tracker API", version: "1.0.0" },
-    servers: [{ url: "http://localhost:3000" }],
+    info: {
+      title: "Financial Service API",
+      version: "1.0.0",
+      description: "API documentation",
+    },
+    servers: [
+      { url: "http://localhost:3000", description: "Local" },
+    ],
     components: {
       securitySchemes: {
-        bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
       },
     },
-    security: [{ bearerAuth: [] }],
   },
-  apis: [
-    path.resolve(process.cwd(), "src/routes/**/*.routes.ts"),
-    path.resolve(process.cwd(), "src/controllers/**/*.controller.ts"),
-    path.resolve(process.cwd(), "dist/routes/**/*.routes.js"),
-    path.resolve(process.cwd(), "dist/controllers/**/*.controller.js"),
-  ],
-});
-console.log(path.resolve(process.cwd(), "src/routes/**/*.routes.ts"));
+  apis: apisGlob,
+};
+
+export const swaggerSpec = swaggerJSDoc(options);

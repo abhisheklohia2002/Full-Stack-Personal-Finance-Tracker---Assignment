@@ -16,6 +16,32 @@ const categoryRepository = AppDataSource.getRepository(Category);
 const categoryService = new CategoryService(categoryRepository);
 const categoryController = new CategoryController(categoryService);
 
+
+
+/**
+ * @openapi
+ * /api/category:
+ *   post:
+ *     summary: Create a category
+ *     tags: [Category]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [name]
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Category name (must be one of allowed enum values)
+ *                 example: "Food,Transport,Entertainment use this category only"
+ *     responses:
+ *       201:
+ *         description: Category created successfully
+ *       400:
+ *         description: Validation error
+ */
 categoryRouter.post(
   "/",
   categoryValidator, 
@@ -23,6 +49,26 @@ categoryRouter.post(
     categoryController.create(req, res, next),
 );
 
+
+/**
+ * @openapi
+ * /api/category:
+ *   get:
+ *     summary: List categories
+ *     tags: [Category]
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           default: ""
+ *         description: Optional search string for filtering categories
+ *     responses:
+ *       200:
+ *         description: Categories fetched successfully
+ *       400:
+ *         description: Validation error
+ */
 categoryRouter.get(
   "/",
   catgeoyrSearch,

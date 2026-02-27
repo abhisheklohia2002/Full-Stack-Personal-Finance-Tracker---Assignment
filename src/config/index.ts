@@ -50,7 +50,8 @@ export const Config = {
   REFRESH_TOKEN_SECRET: required("REFRESH_TOKEN_SECRET"),
   JWKS_URI: required("JWKS_URI"),
 
-  REDIS_HOST: process.env.REDIS_HOST,
-  REDIS_PORT: process.env.REDIS_PORT ? Number(process.env.REDIS_PORT) : undefined,
-  REDIS_URL: process.env.REDIS_URL,
+  REDIS_HOST: required("REDIS_HOST"),
+  REDIS_PORT: required('REDIS_PORT') ? Number(process.env.REDIS_PORT) : undefined,
+  REDIS_URL: required('REDIS_URL'),
+  DATABASE_URL:required('DATABASE_URL')
 };

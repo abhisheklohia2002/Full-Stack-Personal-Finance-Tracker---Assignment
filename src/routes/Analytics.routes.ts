@@ -16,6 +16,25 @@ const transactionRepository = AppDataSource.getRepository(Transaction);
 const analyticsService = new AnalyticsService(transactionRepository);
 const analyticsController = new AnalyticsController(analyticsService);
 
+
+/**
+ * @openapi
+ * /api/analytics/summary:
+ *   get:
+ *     summary: Get analytics summary
+ *     tags:
+ *       - Analytics
+ *     security:
+ *       - bearerAuth: []
+ *     description: "Allowed roles: admin, user, read-only"
+ *     responses:
+ *       200:
+ *         description: Summary analytics returned
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ */
 analyticsRouter.get(
   "/summary",
   autenications,
@@ -24,6 +43,25 @@ analyticsRouter.get(
     analyticsController.summary(req, res, next),
 );
 
+
+/**
+ * @openapi
+ * /api/analytics/category-breakdown:
+ *   get:
+ *     summary: Get category-wise breakdown analytics
+ *     tags:
+ *       - Analytics
+ *     security:
+ *       - bearerAuth: []
+ *     description: "Allowed roles: admin, user, read-only"
+ *     responses:
+ *       200:
+ *         description: Category breakdown returned
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ */
 analyticsRouter.get(
   "/category-breakdown",
   autenications,
@@ -32,6 +70,25 @@ analyticsRouter.get(
     analyticsController.categoryBreakdown(req, res, next),
 );
 
+
+/**
+ * @openapi
+ * /api/analytics/trend:
+ *   get:
+ *     summary: Get transactions trend analytics
+ *     tags:
+ *       - Analytics
+ *     security:
+ *       - bearerAuth: []
+ *     description: "Allowed roles: admin, user, read-only"
+ *     responses:
+ *       200:
+ *         description: Trend analytics returned
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ */
 analyticsRouter.get(
   "/trend",
   autenications,

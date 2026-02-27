@@ -24,7 +24,7 @@ Supports **JWT auth (access)**, serves **JWKS** at `/.well-known/jwks.json`, and
 - TypeScript
 - PostgreSQL
 - TypeORM
-- Swagger (OpenAPI)
+- Swagger (https://full-stack-personal-finance-tracker.onrender.com/api-docs/#/Transaction/post_api_transaction)
 - Docker / Docker Compose 
 
 

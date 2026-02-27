@@ -11,16 +11,20 @@ import cors from 'cors'
 import { globalErrorHandler } from "./middleware/globalErrorHandler.js";
 import analyticsRouter from "./routes/Analytics.routes.js";
 import { swaggerSpec } from "./config/swagger.js";
+import { apiRateLimiter, authRateLimiter } from "./middleware/rateLimit.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
+app.set("trust proxy", 1);
 app.use(cors({
   origin: "http://localhost:5173",
   credentials: true
 }));
 app.use(express.json());
 app.use(cookieParser());
+app.use("/api", apiRateLimiter);
+app.use("/api/auth", authRateLimiter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get("/api/docs.json", (_req, res) => res.json(swaggerSpec));
 app.use("/api/auth",authRouter);

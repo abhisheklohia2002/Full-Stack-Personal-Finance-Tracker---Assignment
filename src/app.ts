@@ -12,7 +12,7 @@ import cors from 'cors'
 import { globalErrorHandler } from "./middleware/globalErrorHandler.js";
 import analyticsRouter from "./routes/Analytics.routes.js";
 import { swaggerSpec } from "./config/swagger.js";
-import { apiRateLimiter, authRateLimiter } from "./middleware/rateLimit.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,14 +29,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 app.get("/api/docs.json", (_req, res) => res.json(swaggerSpec));
-
-app.use("/api", (req, res, next) => {
-  if (req.path === "/docs.json") return next();
-  return apiRateLimiter(req, res, next);
-});
-
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use("/api/auth", authRateLimiter);
 app.use("/api/auth",authRouter);
 app.use('/api/transaction/',transactionRouter)
 app.use("/api/category",categoryRouter);

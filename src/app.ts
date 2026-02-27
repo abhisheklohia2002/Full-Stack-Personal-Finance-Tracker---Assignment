@@ -1,3 +1,4 @@
+import  fs from 'fs';
 import "reflect-metadata";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
@@ -42,6 +43,10 @@ app.get("/.well-known/jwks.json", (_req, res) => {
 });
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to the Finacial Service</h1>");
+});
+app.get("/debug-jwks", (_req, res) => {
+  const p = path.join(__dirname, "../public/.well-known/jwks.json");
+  res.json({ path: p, exists: fs.existsSync(p) });
 });
 
 app.use(globalErrorHandler)

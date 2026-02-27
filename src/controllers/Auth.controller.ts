@@ -29,10 +29,11 @@ class AuthController {
 
       const accessToken = this.tokenService.generateAccessToken(payload);
       res.cookie("accessToken", accessToken, {
-        domain: "localhost",
-        sameSite: "strict",
         httpOnly: true,
+        secure: true, 
+        sameSite: "none", 
         maxAge: 1000 * 60 * 60,
+        path: "/",
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...body } = create;
@@ -61,11 +62,12 @@ class AuthController {
       };
 
       const accessToken = this.tokenService.generateAccessToken(payload);
-      res.cookie("accessToken", accessToken, {
+        res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        sameSite: "strict",
+        secure: true, 
+        sameSite: "none", 
         maxAge: 1000 * 60 * 60,
-        domain: "localhost",
+        path: "/",
       });
       res.status(200).json({ msg: "login successfully", data: isExisted });
     } catch (error) {

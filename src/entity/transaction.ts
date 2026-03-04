@@ -26,8 +26,8 @@ class Transaction {
   @Column({ type: "numeric", precision: 12, scale: 2 })
   amount!: number;
 
-  @Column({ type: "enum", enum: category })
-  category!: category;
+  @Column({ type: "enum", enum: category ,nullable: true  })
+  category!: category | null;
 
   @Column({ type: "date" })
   transactionDate!: string;

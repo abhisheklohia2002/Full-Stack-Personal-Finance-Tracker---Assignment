@@ -31,17 +31,23 @@ const authController = new AuthController(authService, tokenService);
  *         application/json:
  *           schema:
  *             type: object
- *             required: [name, email, password]
+ *             required: [firstName, email, password]
  *             properties:
- *               name:
+ *               firstName:
  *                 type: string
- *                 example: "Abhishek Lohia"
+ *                 example: "Abhishek"
+ *               lastName:
+ *                 type: string
+ *                 example: "Lohia"
  *               email:
  *                 type: string
  *                 example: "admin@tripxl.com"
  *               password:
  *                 type: string
  *                 example: "admin@123"
+ *               role:
+ *                    type: string 
+ *                    example:["admin", "user","read-only"]
  *     responses:
  *       201:
  *         description: User registered successfully

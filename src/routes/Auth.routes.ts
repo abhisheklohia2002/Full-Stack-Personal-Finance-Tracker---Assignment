@@ -47,7 +47,9 @@ const authController = new AuthController(authService, tokenService);
  *                 example: "admin@123"
  *               role:
  *                    type: string 
- *                    example:["admin", "user","read-only"]
+ *                    enum: [admin, user, read-only]
+ *                    example: "admin"
+
  *     responses:
  *       201:
  *         description: User registered successfully
